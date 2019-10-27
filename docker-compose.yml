@@ -3,15 +3,15 @@ version: '3.7'
 services:
     db:
       container_name: wordpress_db
-      image: mysql:5.7
-      # image: mysql:8
-      # command: --default-authentication-plugin=mysql_native_password
-      # env_file: ./code/db/.env
+      image: mysql:8
+      command: --default-authentication-plugin=mysql_native_password
+      env_file: ./code/db/.env
       # volumes:
-        #- db_data:/var/lib/mysql
-          #- ./code/db/backup-file.sql:/docker-entrypoint-initdb.d/backup-file.sql
+      #   - db_data:/var/lib/mysql
+      #   - ./code/db/backup-file.sql:/docker-entrypoint-initdb.d/backup-file.sql
       ports:
         - "3306"
+
     web:
       container_name: wordpress_web
       build:
@@ -23,6 +23,7 @@ services:
         - "9000"
       depends_on:
         - db
+
     nginx:
       container_name: wordpress_nginx
       build:
@@ -36,5 +37,5 @@ services:
         - "443:443"
       depends_on:
         - web
-          #volumes:
-          #  db_data:
+          # volumes:
+          #   db_data:
